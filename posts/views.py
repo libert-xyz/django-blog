@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
+from models import *
 # Create your views here.
 
 def post_create(request):
@@ -8,13 +10,24 @@ def post_create(request):
 
 
 def post_detail(request):
+    #instance = Post.objects.get(id=3)
+    instance = get_object_or_404(Post,id=1)
+    context = {'title':instance.title, 'instance':instance}
 
-    return HttpResponse('<h1>Detail</h1>')
+    return render(request,'post_detail.html',context)
 
 
 def post_list(request):
 
-    return HttpResponse('<h1>List</h1>')
+    query = Post.objects.all()
+    if request.user.is_authenticated():
+        context = {'title': 'User', 'query':query}
+
+
+    else:
+        context = {'user':'Anonymous'}
+
+    return render(request,'index.html',context)
 
 def post_update(request):
 
