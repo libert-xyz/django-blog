@@ -6,10 +6,10 @@
   </head>
   <body>
 
-    <h1> hi {{title}}</h1><br>
+    <h1> hi {{user}}</h1><br>
     {% for obj in query %}
       {{obj.id}}<br>
-      {{obj.title}}<br>
+      <a href='{% url "posts:detail" pk=obj.id %}'>{{obj.title}}</a><br>
       {{obj.content}}<br>
       {{obj.updated}}<br>
       {{obj.timestamp}}<br>
