@@ -16,8 +16,7 @@ def post_create(request):
         ## message success
         messages.success(request, 'Successfully created')
         return HttpResponseRedirect(instance.get_absolute_url())
-    else:
-        messages.error(request,'Not Successfully created')
+
     #if request.method == 'POST':
         #title = request.POST.get('title')
         #Post.objects.create(title = title)
@@ -43,7 +42,7 @@ def post_list(request):
     else:
         context = {'user':'Anonymous'}
 
-    return render(request,'index.html',context)
+    return render(request,'post_list.html',context)
 
 def post_update(request,pk):
 

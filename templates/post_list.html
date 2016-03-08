@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1> hi {{user}}</h1><br>
+    {% for obj in query %}
+      {{obj.id}}<br>
+      <a href='{% url "posts:detail" pk=obj.id %}'>{{obj.title}}</a><br>
+      {{obj.content}}<br>
+      {{obj.updated}}<br>
+      {{obj.timestamp}}<br>
+
+    {%endfor%}
+
+{% endblock content %}
