@@ -3,13 +3,47 @@
 {% block content %}
 
     <h1> hi {{user}}</h1><br>
-    {% for obj in query %}
-      {{obj.id}}<br>
-      <a href='{% url "posts:detail" pk=obj.id %}'>{{obj.title}}</a><br>
-      {{obj.content}}<br>
-      {{obj.updated}}<br>
-      {{obj.timestamp}}<br>
+    <div class="row">
+        {% for obj in query %}
+          <div class="col-sm-6">
+            <div class="thumbnail">
+              {% if obj.image %}
+              <img src="{{ obj.image.url}}" class='img-responsive' />
+              {% endif %}
 
-    {%endfor%}
+              <div class="caption">
+                <h3><a href='{% url "posts:detail" pk=obj.id %}'>{{obj.title}}</a>
+                  <small>{{obj.timestamp|timesince}}</small><br></h3>
+
+                <p>{{obj.content | linebreaks | truncatechars:120 }}</p>
+                <p><a href="{% url "posts:detail" pk=obj.id %}" class="btn btn-primary" role="button">View</a></p>
+              </div>
+            </div>
+          </div>
+
+          {% cycle "" "</div><div class='row'>" %}
+        {%endfor%}
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if query.has_previous %}
+                    <a href="?page={{ query.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ query.number }} of {{ query.paginator.num_pages }}.
+                </span>
+
+                {% if query.has_next %}
+                    <a href="?page={{ query.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+
+
+  </div>
+
+
+
 
 {% endblock content %}
