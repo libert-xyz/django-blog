@@ -9,7 +9,7 @@
     <h1> hi {{user}}</h1><br>
     {% for obj in query %}
       {{obj.id}}<br>
-      <a href='{% url "posts:detail" pk=obj.id %}'>{{obj.title}}</a><br>
+      <a href='{{ obj.get_absolute_url }}'>{{obj.title}}</a><br>
       {{obj.content}}<br>
       {{obj.updated}}<br>
       {{obj.timestamp}}<br>
