@@ -1,3 +1,13 @@
+try:
+    from urllib import quote_plus #python 2
+except:
+    pass
+
+try:
+    from urllib.parse import quote_plus #python 3
+except:
+    pass
+
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseRedirect
@@ -31,7 +41,10 @@ def post_create(request):
 def post_detail(request,slug=None):
     #instance = Post.objects.get(id=3)
     instance = get_object_or_404(Post,slug=slug)
-    context = {'title':instance.title, 'instance':instance}
+    #share_string = quote_plus(instance.content)
+    #context = {'title':instance.title, 'instance':instance, 'share_string':share_string,}
+    context = {'title':instance.title, 'instance':instance,}
+
 
     return render(request,'post_detail.html',context)
 
